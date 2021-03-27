@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <div id="id01"></div>
+
+    <script>
+        const updateIntervalInSeconds = 10;
+        function tick() {
+            const xmlhttp = new XMLHttpRequest();
+            const url = "https://api.lanyard.rest/v1/users/422274807732633604";
+    
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    updateActivity(response);
+                }
+            };
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+    
+            function updateActivity(response) {
+                const { activities, discord_user: user } = response.data;
+                const osuActivity = activities.filter((v) => v.application_id === "367827983903490050")[0];
+                const root = document.getElementById("id01");
+                const name = document.createElement("h1");
+                name.innerText = user.username;
+                const activityName = document.createElement("h3");
+                activityName.innerText = osuActivity ? "osu!" : "Just chatting";
+                const activityDetails = document.createElement("h4");
+                activityDetails.innerText = osuActivity?.details || "";
+                const activityState = document.createElement("h4");
+                activityState.innerText = osuActivity?.state || "Idle";
+                root.innerHTML = "";
+                root.appendChild(name);
+                root.appendChild(activityName);
+                root.appendChild(activityDetails);
+                root.appendChild(activityState);
+            }
+        }
+        tick();
+        setInterval(tick, updateIntervalInSeconds * 1000);
+    </script>
+</body>
+
+</html>

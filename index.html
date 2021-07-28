@@ -1,1 +1,28 @@
-<video muted autoplay src="https://hexality.s-ul.eu/oeFYdoQ7.mp4">
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+			video#towa {
+				position: fixed;
+				right: 0;
+				bottom: 0;
+				min-width: 100%;
+				min-height: 100%;
+			}
+    </style>
+  </head>
+  <body>
+    <video id="towa" muted autoplay src="https://hexality.s-ul.eu/oeFYdoQ7.mp4">
+    </video>
+    <script>
+      function toggleMute() {
+
+          var video=document.getElementById("towa");
+
+          video.muted = !video.muted;
+
+      }
+    </script>
+  </body>
+</html>
+  
